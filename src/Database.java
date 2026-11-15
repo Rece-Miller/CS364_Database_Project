@@ -12,28 +12,42 @@ public class Database {
 
     // connection object for running queries
     private Connection connection;
+
+    /**
+     * Initializes the database from given information.
+     * @param url      The url of the database server
+     * @param dbName   The name of the database on the server
+     * @param username The username of the user on the server
+     * @param password The password of the user on the server
+     */
+    public Database(String url, String dbName, String username, String password) {
+        this.url = url;
+        this.dbName = dbName;
+        this.username = username;
+        this.password = password;
+    }
     
     /**
      * Initializes the database information from .env file.
      */
     public Database() {
-        url = Env.get("DB_URL");
-        dbName = Env.get("DB_NAME");
-        username = Env.get("DB_USERNAME");
-        password = Env.get("DB_PASSWORD");
+        this(Env.get("DB_URL"),
+             Env.get("DB_NAME"),
+             Env.get("DB_USERNAME"),
+             Env.get("DB_PASSWORD"));
     }
-    
+ 
     /**
      * Connects to the database.
      * @return whether or not the connection was successful
      */
     public boolean connect() {
         try {
-            url = url + dbName + "?";
-            connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(
+                url + dbName + "?", username, password);
         } catch (SQLException e) {
             System.err.println("Error: Connection failed");
-            e.printStackTrace();
+            // e.printStackTrace();
             return false;
         }
         return true;

@@ -7,5 +7,9 @@ compile:
 run:
 	java -cp bin:lib/* Main
 
+# runs in development mode
+dev: compile
+	java -cp bin:lib/* Main -dev
+
 clean:
 	rm -rf bin/

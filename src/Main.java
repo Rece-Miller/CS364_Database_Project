@@ -29,7 +29,7 @@ public class Main {
             }
 
             // main gui application
-            App app = new App();
+            App app = new App(database);
         });
     }
 }
